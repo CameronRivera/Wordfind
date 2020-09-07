@@ -37,6 +37,7 @@ class MainView: UIView {
     public lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.isScrollEnabled = true
+        scrollView.backgroundColor = UIColor.systemOrange
         return scrollView
     }()
     
@@ -45,8 +46,10 @@ class MainView: UIView {
         textView.isEditable = false
         textView.isSelectable = false
         textView.text = wordBankSet.reduce("", { (result, word) -> String in
-            return result + word + " "
+            return result + word + "\n"
         })
+        textView.layer.borderColor = UIColor.black.cgColor
+        textView.layer.borderWidth = 1.0
         return textView
     }()
     
@@ -63,11 +66,11 @@ class MainView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         let screenSize = UIScreen.main.bounds.size
-        scrollView.contentSize = CGSize(width: screenSize.width, height: screenSize.height * 2)
+        scrollView.contentSize = CGSize(width: screenSize.width, height: screenSize.height * 2.0)
     }
     
     private func commonInit() {
-        backgroundColor = UIColor.systemGray4
+        backgroundColor = UIColor.systemBackground
         setUpScrollViewConstraints()
         setUpCollectionViewConstraints()
         setUpWordBankConstraints()
@@ -78,6 +81,8 @@ class MainView: UIView {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor), scrollView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor), scrollView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor), scrollView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)])
+        
+
     }
     
     private func setUpCollectionViewConstraints() {
@@ -91,7 +96,7 @@ class MainView: UIView {
         scrollView.addSubview(wordBank)
         wordBank.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([wordBank.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20), wordBank.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8), wordBank.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8), wordBank.heightAnchor.constraint(equalToConstant: 1000)])
+        NSLayoutConstraint.activate([wordBank.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20), wordBank.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8), wordBank.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8), wordBank.heightAnchor.constraint(equalToConstant: 100)])
     }
     
     private func configureLayout() -> UICollectionViewCompositionalLayout {
