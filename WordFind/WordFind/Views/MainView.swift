@@ -25,7 +25,7 @@ class MainView: UIView {
     ["W","G","L","F","M","O","B","I","L","E"],
     ["B","P","C","U","T","W","U","L","H","T"],
     ["O","B","J","E","C","T","I","V","E","C"]]
-    private let wordBankSet: Set<String> = ["objectivec", "kotlin", "swift", "variable", "java", "mobile", "maze", "zeal", "sew", "due", "draft", "cult", "cairn", "note", "generate"]
+    private let wordBankSet: Set<String> = ["objectivec", "kotlin", "swift", "variable", "java", "mobile", "maze", "zeal", "sew", "cut", "draft", "cult", "cairn", "note", "generate"]
     
     public lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: UIScreen.main.bounds, collectionViewLayout: configureLayout())
@@ -46,11 +46,19 @@ class MainView: UIView {
         textView.isEditable = false
         textView.isSelectable = false
         textView.text = wordBankSet.reduce("", { (result, word) -> String in
-            return result + word + "\n"
+            return result + word + " "
         })
         textView.layer.borderColor = UIColor.black.cgColor
         textView.layer.borderWidth = 1.0
         return textView
+    }()
+    
+    public lazy var wordBankLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = UIColor.black
+        label.text = "Word Bank"
+        return label
     }()
     
     override init(frame: CGRect) {
@@ -74,6 +82,7 @@ class MainView: UIView {
         setUpScrollViewConstraints()
         setUpCollectionViewConstraints()
         setUpWordBankConstraints()
+        setUpWordBankLabelConstraints()
     }
     
     private func setUpScrollViewConstraints() {
@@ -97,6 +106,13 @@ class MainView: UIView {
         wordBank.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([wordBank.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20), wordBank.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8), wordBank.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8), wordBank.heightAnchor.constraint(equalToConstant: 100)])
+    }
+    
+    private func setUpWordBankLabelConstraints() {
+        scrollView.addSubview(wordBankLabel)
+        wordBankLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([wordBankLabel.topAnchor.constraint(equalTo: wordBank.bottomAnchor, constant: 20), wordBankLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8), wordBankLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8)])
     }
     
     private func configureLayout() -> UICollectionViewCompositionalLayout {
@@ -123,7 +139,7 @@ class MainView: UIView {
     }
     
     public func getMatrixLetter(row: Int, column: Int) -> String {
-        guard row < 10 && column < 10 else { return "1"}
+        guard row < 10 && column < 10 else { return "1" }
         return contentMatrix[column][row]
     }
     
@@ -131,12 +147,20 @@ class MainView: UIView {
         var column = 0
         var row = x
         
-        while row > 10 {
+        while row >= 10 {
             row -= 10
             column += 1
         }
         
         return (row,column)
+    }
+    
+    public func isWordInBank(_ word: String) -> Bool {
+        return wordBankSet.contains(word.lowercased())
+    }
+    
+    public func removeWordFromBank(_ word: String) {
+        wordBank.text = wordBank.text.replacingOccurrences(of: "\(word.lowercased()) ", with: "")
     }
 
 }

@@ -13,6 +13,9 @@ class MainViewController: UIViewController {
     private let mainView = MainView()
     private var dataSource: DataSource!
     private var column: Int = 0
+    private var currentWord: String = ""
+    private var currentIndexPath: IndexPath = IndexPath()
+    private var firstTap: Bool = true
     
     override func loadView() {
         view = mainView
@@ -60,6 +63,10 @@ class MainViewController: UIViewController {
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let posTuple = mainView.rowsAndColumns(indexPath.row)
-        print(mainView.getMatrixLetter(row: posTuple.row, column: posTuple.col))
+        currentWord += mainView.getMatrixLetter(row: posTuple.row, column: posTuple.col)
+        print(currentWord)
+        if mainView.isWordInBank(currentWord) {
+            mainView.removeWordFromBank(currentWord)
+        }
     }
 }
