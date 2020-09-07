@@ -57,14 +57,19 @@ class MainViewController: UIViewController {
         dataSource.apply(snapshot)
     }
     
-    
+    private func clearSelection() {
+        currentWord = ""
+        mainView.currentWordLabel.text = currentWord
+        firstTap = true
+        currentIndexPath = IndexPath()
+    }
 }
 
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let posTuple = mainView.rowsAndColumns(indexPath.row)
         currentWord += mainView.getMatrixLetter(row: posTuple.row, column: posTuple.col)
-        print(currentWord)
+        mainView.currentWordLabel.text = currentWord
         if mainView.isWordInBank(currentWord) {
             mainView.removeWordFromBank(currentWord)
         }

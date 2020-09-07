@@ -61,6 +61,14 @@ class MainView: UIView {
         return label
     }()
     
+    public lazy var currentWordLabel: UILabel = {
+       let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = UIColor.black
+        label.text = ""
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
@@ -81,6 +89,7 @@ class MainView: UIView {
         backgroundColor = UIColor.systemBackground
         setUpScrollViewConstraints()
         setUpCollectionViewConstraints()
+        setUpCurrentWordLabelConstraints()
         setUpWordBankConstraints()
         setUpWordBankLabelConstraints()
     }
@@ -98,14 +107,21 @@ class MainView: UIView {
         scrollView.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([collectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor), collectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor), collectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor), collectionView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6)])
+        NSLayoutConstraint.activate([collectionView.topAnchor.constraint(equalTo: scrollView.topAnchor), collectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor), collectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor), collectionView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6)])
+    }
+    
+    private func setUpCurrentWordLabelConstraints() {
+        scrollView.addSubview(currentWordLabel)
+        currentWordLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([currentWordLabel.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20), currentWordLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8), currentWordLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8)])
     }
     
     private func setUpWordBankConstraints() {
         scrollView.addSubview(wordBank)
         wordBank.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([wordBank.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20), wordBank.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8), wordBank.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8), wordBank.heightAnchor.constraint(equalToConstant: 100)])
+        NSLayoutConstraint.activate([wordBank.topAnchor.constraint(equalTo: currentWordLabel.bottomAnchor, constant: 20), wordBank.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8), wordBank.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8), wordBank.heightAnchor.constraint(equalToConstant: 100)])
     }
     
     private func setUpWordBankLabelConstraints() {
