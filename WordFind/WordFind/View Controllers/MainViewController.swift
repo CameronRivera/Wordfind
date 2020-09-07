@@ -24,11 +24,24 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        configureButtons()
         configureDataSource()
     }
     
     private func configureUI() {
         navigationItem.title = "WordFind"
+        navigationItem.rightBarButtonItem = mainView.directionsButton
+        navigationItem.leftBarButtonItem = mainView.playAgainButton
+    }
+    
+    private func configureButtons() {
+        mainView.playAgainButton.target = self
+        mainView.directionsButton.target = self
+        mainView.playAgainButton.action = #selector(playAgainButtonPressed(_:))
+        mainView.directionsButton.action = #selector(directionsButtonPressed(_:))
+        mainView.submitButton.addTarget(self, action: #selector(submitButtonPressed(_:)), for: .touchUpInside)
+        mainView.resetInputButton.addTarget(self, action: #selector(resetInputButtonPressed(_:)), for: .touchUpInside)
+        
     }
     
     private func configureDataSource() {
@@ -57,11 +70,27 @@ class MainViewController: UIViewController {
         dataSource.apply(snapshot)
     }
     
-    private func clearSelection() {
+    @objc
+    private func resetInputButtonPressed(_ sender: UIButton) {
         currentWord = ""
         mainView.currentWordLabel.text = currentWord
         firstTap = true
         currentIndexPath = IndexPath()
+    }
+    
+    @objc
+    private func directionsButtonPressed(_ sender: UIBarButtonItem) {
+        
+    }
+    
+    @objc
+    private func submitButtonPressed(_ sender: UIButton) {
+        
+    }
+    
+    @objc
+    private func playAgainButtonPressed(_ sender: UIBarButtonItem) {
+        
     }
 }
 

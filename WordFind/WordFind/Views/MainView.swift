@@ -16,16 +16,16 @@ enum Section {
 
 class MainView: UIView {
     
-    private let contentMatrix: [[String]] = [["S","E","T","A","R","E","N","E","G","B"], ["W","P","N","D","Z","C","A","I","R","N"],
+    private let contentMatrix: [[String]] = [["S","E","T","A","R","E","N","E","G","B"], ["W","P","N","O","Z","C","A","I","R","N"],
     ["T","V","M","R","J","U","G","X","P","I"],
     ["Q","E","A","H","Y","A","T","H","C","L"],
     ["D","S","Z","R","N","F","V","Y","Q","T"],
     ["H","R","E","L","I","U","S","A","V","O"],
     ["F","T","A","W","E","A","N","X","P","K"],
-    ["W","G","L","F","M","O","B","I","L","E"],
-    ["B","P","C","U","T","W","U","L","H","T"],
+    ["W","G","S","F","M","O","B","I","L","E"],
+    ["B","P","C","O","T","W","U","L","H","T"],
     ["O","B","J","E","C","T","I","V","E","C"]]
-    private let wordBankSet: Set<String> = ["objectivec", "kotlin", "swift", "variable", "java", "mobile", "maze", "zeal", "sew", "cut", "draft", "cult", "cairn", "note", "generate"]
+    private let wordBankSet: Set<String> = ["objectivec", "kotlin", "swift", "variable", "java", "mobile", "maze", "rash", "sew", "cot", "draft", "cost", "cairn", "note", "generate"]
     
     public lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: UIScreen.main.bounds, collectionViewLayout: configureLayout())
@@ -69,6 +69,39 @@ class MainView: UIView {
         return label
     }()
     
+    public lazy var resetInputButton: UIButton = {
+       let button = UIButton()
+        button.setTitle("Reset Input", for: .normal)
+        button.setTitleColor(UIColor.blue, for: .normal)
+        return button
+    }()
+    
+    public lazy var submitButton: UIButton = {
+       let button = UIButton()
+        button.setTitle("Submit Guess", for: .normal)
+        button.setTitleColor(UIColor.blue, for: .normal)
+        return button
+    }()
+    
+    public lazy var playAgainButton: UIBarButtonItem = {
+       let barButton = UIBarButtonItem()
+        barButton.title = "Play Again"
+        return barButton
+    }()
+    
+    public lazy var directionsButton: UIBarButtonItem = {
+       let barButton = UIBarButtonItem()
+        barButton.title = "Instructions"
+        return barButton
+    }()
+    
+    public lazy var optionsStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.distribution = .fillEqually
+        stackView.axis = .horizontal
+        return stackView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
@@ -99,8 +132,6 @@ class MainView: UIView {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor), scrollView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor), scrollView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor), scrollView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)])
-        
-
     }
     
     private func setUpCollectionViewConstraints() {
@@ -121,14 +152,17 @@ class MainView: UIView {
         scrollView.addSubview(wordBank)
         wordBank.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([wordBank.topAnchor.constraint(equalTo: currentWordLabel.bottomAnchor, constant: 20), wordBank.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8), wordBank.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8), wordBank.heightAnchor.constraint(equalToConstant: 100)])
+        NSLayoutConstraint.activate([wordBank.topAnchor.constraint(equalTo: currentWordLabel.bottomAnchor, constant: 20), wordBank.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8), wordBank.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8), wordBank.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1)])
     }
     
     private func setUpWordBankLabelConstraints() {
-        scrollView.addSubview(wordBankLabel)
-        wordBankLabel.translatesAutoresizingMaskIntoConstraints = false
+        optionsStack.addArrangedSubview(resetInputButton)
+        optionsStack.addArrangedSubview(wordBankLabel)
+        optionsStack.addArrangedSubview(submitButton)
+        scrollView.addSubview(optionsStack)
+        optionsStack.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([wordBankLabel.topAnchor.constraint(equalTo: wordBank.bottomAnchor, constant: 20), wordBankLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8), wordBankLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8)])
+        NSLayoutConstraint.activate([optionsStack.topAnchor.constraint(equalTo: wordBank.bottomAnchor, constant: 20), optionsStack.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8), optionsStack.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8)])
     }
     
     private func configureLayout() -> UICollectionViewCompositionalLayout {
