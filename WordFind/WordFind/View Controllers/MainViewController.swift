@@ -109,6 +109,7 @@ With that you know everything there is to know. Have fun!
     
     @objc
     private func submitButtonPressed(_ sender: UIButton) {
+        guard !currentWord.isEmpty else { return }
         if mainView.isWordInBank(currentWord) && mainView.wordBank.text.contains(currentWord.lowercased()) {
             showAlert("Well Done", "You found the word \(currentWord.lowercased())! It will be removed from the word bank.", "Ok") { [unowned self] alertAction in
                 self.mainView.removeWordFromBank(self.currentWord)
