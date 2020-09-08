@@ -16,6 +16,7 @@
 		C459AA6A250585D1005CC763 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C459AA69250585D1005CC763 /* MainView.swift */; };
 		C459AA6C25058660005CC763 /* LetterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C459AA6B25058660005CC763 /* LetterCell.swift */; };
 		C459AA6F2506C4A4005CC763 /* UIViewController+ShowAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C459AA6E2506C4A4005CC763 /* UIViewController+ShowAlert.swift */; };
+		C4BE9BF12507EE27001983AA /* GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BE9BF02507EE27001983AA /* GameLogic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		C459AA69250585D1005CC763 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		C459AA6B25058660005CC763 /* LetterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterCell.swift; sourceTree = "<group>"; };
 		C459AA6E2506C4A4005CC763 /* UIViewController+ShowAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ShowAlert.swift"; sourceTree = "<group>"; };
+		C4BE9BF02507EE27001983AA /* GameLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 		C459AA41250584A9005CC763 /* WordFind */ = {
 			isa = PBXGroup;
 			children = (
+				C4BE9BEE2507EE0B001983AA /* Services */,
 				C459AA6D2506C47E005CC763 /* Extensions */,
 				C459AA67250585A7005CC763 /* Cells */,
 				C459AA66250585A2005CC763 /* Views */,
@@ -143,6 +146,14 @@
 				C459AA6E2506C4A4005CC763 /* UIViewController+ShowAlert.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C4BE9BEE2507EE0B001983AA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C4BE9BF02507EE27001983AA /* GameLogic.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,6 +262,7 @@
 				C459AA6A250585D1005CC763 /* MainView.swift in Sources */,
 				C459AA43250584A9005CC763 /* AppDelegate.swift in Sources */,
 				C459AA45250584A9005CC763 /* SceneDelegate.swift in Sources */,
+				C4BE9BF12507EE27001983AA /* GameLogic.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
