@@ -95,12 +95,20 @@ class MainViewController: UIViewController {
     
     @objc
     private func submitButtonPressed(_ sender: UIButton) {
-        if mainView.isWordInBank(currentWord) {
+        if mainView.isWordInBank(currentWord) && mainView.wordBank.text.contains(currentWord.lowercased()) {
             showAlert("Well Done", "You found the word \(currentWord.lowercased())! It will be removed from the word bank.", "Ok") { [unowned self] alertAction in
                 self.mainView.removeWordFromBank(self.currentWord)
                 self.clearInput()
+                if self.mainView.wordBank.text == "" {
+                    self.showAlert("Congratulations!", "You win.🥳 Play again?", "Yes", "No") { [unowned self] alertAction in
+                        self.mainView.resetWordBank()
+                    }
+                }
             }
-
+        } else if mainView.isWordInBank(currentWord) && !mainView.wordBank.text.contains(currentWord.lowercased()) {
+            showAlert("Oops", "It looks like you have already found this word. Take a look at the word bank to see which ones you have yet to find.") { [unowned self] alertAction in
+                self.clearInput()
+            }
         } else {
             showAlert("Oops", "\(currentWord.lowercased()) is not one of the words in the word bank. Keep searching.", "Ok")
         }
