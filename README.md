@@ -10,4 +10,4 @@ An application that allows you to play a game of word find on a static letter gr
 
 New Game | Mid Game | Completed Game |
 ---------|----------|----------------|
-![](Assets/NewGame.png)| ![](Assets/MidGame.png)| ![](Assets/EndGame.png)
+![](Assets/NewGame.png)| ![](Assets/MidGame.png)| ![](Assets/EndGame.png)|
