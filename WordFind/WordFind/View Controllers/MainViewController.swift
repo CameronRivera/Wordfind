@@ -33,6 +33,7 @@ class MainViewController: UIViewController {
         navigationItem.title = "WordFind"
         navigationItem.rightBarButtonItem = mainView.directionsButton
         navigationItem.leftBarButtonItem = mainView.playAgainButton
+        navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.8274509804, green: 0.8274509804, blue: 0.8274509804, alpha: 1)
     }
     
     private func configureButtons() {
@@ -42,7 +43,6 @@ class MainViewController: UIViewController {
         mainView.directionsButton.action = #selector(directionsButtonPressed(_:))
         mainView.submitButton.addTarget(self, action: #selector(submitButtonPressed(_:)), for: .touchUpInside)
         mainView.resetInputButton.addTarget(self, action: #selector(resetInputButtonPressed(_:)), for: .touchUpInside)
-        
     }
     
     private func configureDataSource() {
@@ -56,7 +56,7 @@ class MainViewController: UIViewController {
             let letterTuple = self?.mainView.rowsAndColumns(indexPath.row) ?? (0,0)
             
             xCell.letterLabel.text = self?.mainView.getMatrixLetter(row: letterTuple.0, column: letterTuple.1)
-            xCell.backgroundColor = UIColor.systemYellow
+            xCell.backgroundColor = #colorLiteral(red: 0.5, green: 1, blue: 1, alpha: 1)
             xCell.layer.borderColor = UIColor.black.cgColor
             xCell.layer.borderWidth = 1.0
             
@@ -90,7 +90,21 @@ class MainViewController: UIViewController {
     
     @objc
     private func directionsButtonPressed(_ sender: UIBarButtonItem) {
-        
+        let instructions = """
+The objective of this game is to find all of the words in the word bank within the letter grid shown on the screen. The rules are quite simple:
+1. The first letter you choose can be any letter in the grid.
+2. The second letter you choose may only be one of the letters in any direction immediately touching the first letter. In other words, the second letter must be a diagonal, above, below, to the immediate left, or to the immediate right of the first letter.
+3. Once you have chosen a second letter, any subsequent letters you choose must be in the same direction. So for example, if the second letter I choose is in the square directly above the first letter, the third letter must be in the square directly above the second letter, and so on. Any other choice is invalid.
+
+Some things to note:
+- As you choose letters, they will appear below the letter grid, so you need not necessarily keep track of which letters you have chosen.
+- If you feel that you have found a word contained within the word bank, click the submit button to check it. If it is indeed contained within the word bank, the word will be removed, and you'll have the chance to look for additional words.
+- If you make a mistake, you can press the clear button on the bottom left of the screen to clear your selection and start over again.
+- At any time you can press the play again button in the top left corner of the screen in order to reset the game.
+
+With that you know everything there is to know. Have fun!
+"""
+        showAlert("Instructions", instructions)
     }
     
     @objc

@@ -49,7 +49,8 @@ class MainView: UIView {
     public lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.isScrollEnabled = true
-        scrollView.backgroundColor = UIColor.systemOrange
+        scrollView.backgroundColor = #colorLiteral(red: 0.8274509804, green: 0.8274509804, blue: 0.8274509804, alpha: 1)
+        scrollView.bounces = false
         return scrollView
     }()
     
@@ -88,7 +89,7 @@ class MainView: UIView {
     
     public lazy var submitButton: UIButton = {
        let button = UIButton()
-        button.setTitle("Submit Guess", for: .normal)
+        button.setTitle("Submit Word", for: .normal)
         button.setTitleColor(UIColor.blue, for: .normal)
         return button
     }()
@@ -125,11 +126,11 @@ class MainView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         let screenSize = UIScreen.main.bounds.size
-        scrollView.contentSize = CGSize(width: screenSize.width, height: screenSize.height * 1.1)
+        scrollView.contentSize = CGSize(width: screenSize.width, height: screenSize.height * 1.01)
     }
     
     private func commonInit() {
-        backgroundColor = UIColor.systemBackground
+        backgroundColor = #colorLiteral(red: 0.8274509804, green: 0.8274509804, blue: 0.8274509804, alpha: 1)
         resetWordBank()
         setUpScrollViewConstraints()
         setUpCollectionViewConstraints()
