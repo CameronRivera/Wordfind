@@ -12,13 +12,14 @@ import XCTest
 class WordFindTests: XCTestCase {
     
     let view = MainView()
+    let manager = GameLogic.manager
     
     func testGetMatrixLetter() {
         // Arrange
         let expectedLetter = "X"
         
         // Act
-        let actualLetter = view.getMatrixLetter(row: 2, column: 7)
+        let actualLetter = manager.getMatrixLetter(row: 2, column: 7)
         
         // Assert
         XCTAssertEqual(expectedLetter, actualLetter)
@@ -29,7 +30,7 @@ class WordFindTests: XCTestCase {
         let expectedRowColumnTuple = (2,6)
         
         // Act
-        let actualTuple = view.rowsAndColumns(62)
+        let actualTuple = manager.rowsAndColumns(62)
         
         // Assert
         XCTAssertEqual(expectedRowColumnTuple.0, actualTuple.0)
@@ -44,7 +45,7 @@ class WordFindTests: XCTestCase {
         
         
         // Assert
-        XCTAssertTrue(view.isWordInBank(testWord))
+        XCTAssertTrue(manager.isWordInBank(testWord))
     }
     
     func testRemoveWordFromBank() {
@@ -52,7 +53,7 @@ class WordFindTests: XCTestCase {
         let testWord = "cost"
         
         // Act
-        view.removeWordFromBank(testWord)
+        manager.removeWordFromBank(testWord, view.wordBank)
         
         // Assert
         XCTAssertFalse(view.wordBank.text.contains(testWord))
@@ -65,7 +66,7 @@ class WordFindTests: XCTestCase {
         
         // Act
         view.wordBank.text = ""
-        view.resetWordBank()
+        manager.resetWordBank(view.wordBank)
         
         // Assert
         XCTAssertTrue(view.wordBank.text.contains(wordInBank))
@@ -76,7 +77,7 @@ class WordFindTests: XCTestCase {
         let targetDirection = Direction.northWest
         
         // Act
-        let actualDirection = view.determineDirection(27, 16)
+        let actualDirection = manager.determineDirection(27, 16)
         
         // Assert
         XCTAssertEqual(targetDirection, actualDirection)
@@ -89,7 +90,7 @@ class WordFindTests: XCTestCase {
         let new = 16
         
         // Act
-        let result = view.isValidSelection(old, new, targetDirection)
+        let result = manager.isValidSelection(old, new, targetDirection)
         
         // Assert
         XCTAssertTrue(result)
